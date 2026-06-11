@@ -279,7 +279,14 @@ function renderBouquets(filter = "全部") {
     .map(
       (bouquet) => `
         <article class="bouquet-card" data-id="${bouquet.id}" tabindex="0">
-          <img src="${bouquet.image}" alt="${bouquet.name}花束" loading="lazy" />
+          <img
+            src="${bouquet.image}"
+            alt="${bouquet.name}花束"
+            loading="lazy"
+            decoding="async"
+            width="800"
+            height="976"
+          />
           <div class="bouquet-info">
             <div>
               <h3>${bouquet.name}</h3>
