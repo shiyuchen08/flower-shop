@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="吻吻花坊，为生日、纪念日和每一个普通日子准备花束。"
+    />
+    <title>吻吻花坊</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Quicksand:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav">
+        <a class="brand" href="#">吻吻花坊</a>
+        <a class="nav-contact" href="#contact">联系花店</a>
+      </nav>
+
+      <div class="hero-copy">
+        <p class="eyebrow">FLOWERS FOR EVERYDAY</p>
+        <h1>把想说的话，<br />交给一束花。</h1>
+        <p class="hero-text">每日新鲜花材，手工搭配。支持同城配送与到店自取。</p>
+        <a class="primary-button" href="#bouquets">挑选花束</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-label="服务特色">
+        <article>
+          <span>01</span>
+          <h2>当日鲜花</h2>
+          <p>根据当天花材微调，每一束都独一无二。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>按需搭配</h2>
+          <p>告诉我们预算和场景，为你搭配合适的花。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>同城配送</h2>
+          <p>提前一天预约，配送时间更从容。</p>
+        </article>
+      </section>
+
+      <section class="catalog" id="bouquets">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">OUR BOUQUETS</p>
+            <h2>今日花束</h2>
+          </div>
+          <p>图片为搭配参考，花材会随季节温柔变化。</p>
+        </div>
+
+        <div class="filters" role="group" aria-label="花束分类">
+          <button class="filter active" data-filter="全部">全部</button>
+          <button class="filter" data-filter="生日">生日</button>
+          <button class="filter" data-filter="浪漫">浪漫</button>
+          <button class="filter" data-filter="送长辈">送长辈</button>
+          <button class="filter" data-filter="日常">日常</button>
+          <button class="filter" data-filter="探望慰问">探望慰问</button>
+          <button class="filter" data-filter="开业乔迁">开业乔迁</button>
+          <button class="filter" data-filter="婚礼">婚礼</button>
+          <button class="filter" data-filter="节日">节日</button>
+        </div>
+        <div class="subfilters" id="subfilters" role="group" aria-label="细分类"></div>
+
+        <div class="bouquet-grid" id="bouquet-grid"></div>
+      </section>
+
+      <section class="custom-card">
+        <p class="eyebrow">CUSTOM BOUQUET</p>
+        <h2>没有挑到合适的？</h2>
+        <p>告诉我们赠送对象、场合、喜欢的颜色和预算，我们来替你搭配。</p>
+        <a class="secondary-button" href="#contact">咨询定制花束</a>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div>
+        <a class="brand" href="#">吻吻花坊</a>
+        <p>愿每一个普通的日子，都有花陪伴。</p>
+      </div>
+      <div class="contact-list">
+        <p><strong>营业时间</strong> 每日 08:00–18:00</p>
+        <p><strong>联系电话</strong> <a href="tel:13282152868">13282152868</a></p>
+        <p><strong>门店地址</strong> 浙江省杭州市西湖区双浦镇袁浦街道73号</p>
+      </div>
+    </footer>
+
+    <dialog class="product-dialog" id="product-dialog">
+      <button class="dialog-close" id="dialog-close" aria-label="关闭">×</button>
+      <img id="dialog-image" alt="" />
+      <div class="dialog-content">
+        <p class="dialog-tag" id="dialog-tag"></p>
+        <h2 id="dialog-name"></h2>
+        <p class="dialog-description" id="dialog-description"></p>
+        <p class="dialog-materials" id="dialog-materials"></p>
+        <div class="dialog-bottom">
+          <strong id="dialog-price"></strong>
+          <button class="primary-button" id="order-button">生成咨询文案</button>
+        </div>
+        <p class="copy-tip" id="copy-tip" aria-live="polite"></p>
+      </div>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
