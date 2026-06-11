@@ -284,8 +284,6 @@ function renderBouquets(filter = "全部") {
             alt="${bouquet.name}花束"
             loading="lazy"
             decoding="async"
-            width="800"
-            height="976"
           />
           <div class="bouquet-info">
             <div>

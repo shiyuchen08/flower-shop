@@ -265,8 +265,8 @@ footer p {
 .bouquet-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 0.82;
-  object-fit: cover;
+  height: auto;
+  background: #eeeae2;
   transition: transform 250ms ease;
 }
 
@@ -354,8 +354,10 @@ footer p {
 .product-dialog img {
   display: block;
   width: 100%;
-  height: 260px;
-  object-fit: cover;
+  height: auto;
+  max-height: 62vh;
+  object-fit: contain;
+  background: #eeeae2;
 }
 
 .dialog-close {
@@ -397,6 +399,18 @@ footer p {
   margin-top: 24px;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+}
+
+.dialog-price-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dialog-price-wrap span {
+  color: var(--muted);
+  font-size: 0.68rem;
 }
 
 .copy-tip {
