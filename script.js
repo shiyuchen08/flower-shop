@@ -162,8 +162,16 @@ const categoryChildren = {
 const grid = document.querySelector("#bouquet-grid");
 const dialog = document.querySelector("#product-dialog");
 const subfilters = document.querySelector("#subfilters");
+const shortlistBar = document.querySelector("#shortlist-bar");
+const shortlistDialog = document.querySelector("#shortlist-dialog");
+const shortlistItems = document.querySelector("#shortlist-items");
+const shortlistCount = document.querySelector("#shortlist-count");
+const orderButton = document.querySelector("#order-button");
 let selectedBouquet = null;
 let activeFilter = "全部";
+let shortlist = JSON.parse(localStorage.getItem("flowerShortlist") || "[]")
+  .filter((id) => bouquets.some((bouquet) => bouquet.id === id))
+  .slice(0, 6);
 
 function bouquetCategories(bouquet) {
   return bouquet.categories || [bouquet.category];
@@ -184,6 +192,41 @@ function priceText(bouquet, filter = activeFilter) {
 
 function bouquetLabels(bouquet) {
   return [...bouquetCategories(bouquet), ...bouquetSubcategories(bouquet)].join(" - ");
+}
+
+function saveShortlist() {
+  localStorage.setItem("flowerShortlist", JSON.stringify(shortlist));
+  shortlistCount.textContent = shortlist.length;
+  shortlistBar.classList.toggle("visible", shortlist.length > 0);
+}
+
+function updateOrderButton() {
+  const isSelected = selectedBouquet && shortlist.includes(selectedBouquet.id);
+  orderButton.textContent = isSelected ? "已加入备选" : "加入备选";
+  orderButton.classList.toggle("selected", isSelected);
+}
+
+function renderShortlist() {
+  const selected = shortlist
+    .map((id) => bouquets.find((bouquet) => bouquet.id === id))
+    .filter(Boolean);
+
+  shortlistItems.innerHTML = selected.length
+    ? selected
+        .map(
+          (bouquet) => `
+            <article class="shortlist-item">
+              <img src="${bouquet.image}" alt="${bouquet.name}" />
+              <div>
+                <h3>${bouquet.name}</h3>
+                <p>${bouquet.id} · ${priceText(bouquet, "全部")}</p>
+              </div>
+              <button class="remove-pick" type="button" data-remove-id="${bouquet.id}">移出</button>
+            </article>
+          `,
+        )
+        .join("")
+    : '<p class="shortlist-empty">还没有加入备选的花，先去挑几款喜欢的吧。</p>';
 }
 
 function renderBouquets(filter = "全部") {
@@ -253,6 +296,7 @@ function openProduct(id) {
   document.querySelector("#dialog-price").textContent =
     priceText(selectedBouquet);
   document.querySelector("#copy-tip").textContent = "";
+  updateOrderButton();
   dialog.showModal();
 }
 
@@ -293,16 +337,80 @@ document.querySelector("#dialog-close").addEventListener("click", () => {
   dialog.close();
 });
 
-document.querySelector("#order-button").addEventListener("click", async () => {
-  const message = `你好，我想咨询「${selectedBouquet.name}」（编号：${selectedBouquet.id}，参考价格：${priceText(selectedBouquet)}），请问近期可以预订吗？`;
+orderButton.addEventListener("click", () => {
+  const existingIndex = shortlist.indexOf(selectedBouquet.id);
+  if (existingIndex >= 0) {
+    shortlist.splice(existingIndex, 1);
+    document.querySelector("#copy-tip").textContent = "已从备选中移出。";
+  } else if (shortlist.length >= 6) {
+    document.querySelector("#copy-tip").textContent =
+      "最多可保留 6 款，请先在“我的备选”中移出一款。";
+    return;
+  } else {
+    shortlist.push(selectedBouquet.id);
+    document.querySelector("#copy-tip").textContent = "已加入我的备选。";
+  }
+  saveShortlist();
+  updateOrderButton();
+});
+
+shortlistBar.addEventListener("click", () => {
+  renderShortlist();
+  document.querySelector("#form-tip").textContent = "";
+  shortlistDialog.showModal();
+});
+
+document.querySelector("#shortlist-close").addEventListener("click", () => {
+  shortlistDialog.close();
+});
+
+shortlistItems.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-remove-id]");
+  if (!button) return;
+  shortlist = shortlist.filter((id) => id !== button.dataset.removeId);
+  saveShortlist();
+  renderShortlist();
+});
+
+document.querySelector("#request-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!shortlist.length) {
+    document.querySelector("#form-tip").textContent = "请先加入至少一款备选。";
+    return;
+  }
+
+  const fields = Object.fromEntries(new FormData(event.currentTarget));
+  const selected = shortlist
+    .map((id) => bouquets.find((bouquet) => bouquet.id === id))
+    .filter(Boolean);
+  const lines = selected.map(
+    (bouquet, index) =>
+      `${index + 1}. ${bouquet.name}（编号：${bouquet.id}，参考价格：${priceText(bouquet, "全部")}）`,
+  );
+  const details = [
+    ["赠送对象", fields.recipient],
+    ["使用日期", fields.date],
+    ["预算", fields.budget],
+    ["配送或自取", fields.delivery],
+    ["其他要求", fields.notes],
+  ]
+    .filter(([, value]) => value)
+    .map(([label, value]) => `${label}：${value}`);
+  const message = [
+    "你好，我想咨询以下备选：",
+    "",
+    ...lines,
+    ...(details.length ? ["", ...details] : []),
+  ].join("\n");
 
   try {
     await navigator.clipboard.writeText(message);
-    document.querySelector("#copy-tip").textContent =
-      "咨询文案已复制，可以粘贴发给花店。";
+    document.querySelector("#form-tip").textContent =
+      "咨询清单已复制，可以粘贴发送给花店。";
   } catch {
-    document.querySelector("#copy-tip").textContent = message;
+    document.querySelector("#form-tip").textContent = message;
   }
 });
 
+saveShortlist();
 renderBouquets();

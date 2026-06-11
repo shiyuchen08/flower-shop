@@ -155,6 +155,30 @@ footer p {
   line-height: 1.8;
 }
 
+.shop-note {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 30px 20px 80px;
+}
+
+.shop-note h2 {
+  max-width: 700px;
+  margin: 0 0 26px;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 8vw, 3.7rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.shop-note > p:not(.eyebrow) {
+  max-width: 850px;
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  line-height: 2.1;
+}
+
 .catalog {
   padding: 68px 20px 90px;
   background: var(--cream);
@@ -186,6 +210,28 @@ footer p {
 
 .section-heading > p {
   margin: 0;
+}
+
+.swipe-hint {
+  max-width: 1180px;
+  margin: 0 auto 10px;
+  color: var(--peach);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: right;
+}
+
+.swipe-hint span {
+  display: inline-block;
+  margin-left: 4px;
+  animation: swipe-nudge 1.5s ease-in-out infinite;
+}
+
+@keyframes swipe-nudge {
+  50% {
+    transform: translateX(4px);
+  }
 }
 
 .filters {
@@ -419,15 +465,177 @@ footer p {
   text-align: right;
 }
 
+.shortlist-bar {
+  position: fixed;
+  z-index: 8;
+  right: 18px;
+  bottom: 18px;
+  display: none;
+  min-height: 50px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 100px;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  background: var(--green);
+  box-shadow: 0 10px 28px rgba(39, 50, 43, 0.28);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.shortlist-bar.visible {
+  display: flex;
+}
+
+.shortlist-bar strong {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  place-items: center;
+  color: var(--green);
+  background: white;
+  font-size: 0.75rem;
+}
+
+.shortlist-dialog {
+  width: min(94vw, 820px);
+  max-height: 92vh;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.shortlist-dialog::backdrop {
+  background: rgba(22, 31, 26, 0.72);
+}
+
+.shortlist-heading {
+  position: relative;
+  padding: 28px 26px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.shortlist-heading h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 2rem;
+}
+
+.shortlist-heading > div > p:last-child {
+  margin: 8px 42px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.shortlist-close {
+  top: 22px;
+}
+
+.shortlist-items {
+  display: grid;
+  padding: 20px 26px;
+  gap: 12px;
+}
+
+.shortlist-empty {
+  padding: 28px 12px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.8;
+}
+
+.shortlist-item {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.shortlist-item img {
+  width: 64px;
+  height: 72px;
+  object-fit: cover;
+}
+
+.shortlist-item h3 {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  font-size: 0.9rem;
+}
+
+.shortlist-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.remove-pick {
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.72rem;
+}
+
+.request-form {
+  display: grid;
+  padding: 24px 26px 30px;
+  border-top: 1px solid var(--line);
+  gap: 14px;
+}
+
+.request-form h3 {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+}
+
+.request-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.request-form label span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.request-form input,
+.request-form select,
+.request-form textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--ink);
+  background: white;
+  font: inherit;
+}
+
+.request-form textarea {
+  resize: vertical;
+}
+
+.form-tip {
+  min-height: 20px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
 @media (min-width: 720px) {
   .hero {
     padding: 30px 40px;
   }
 
   .intro {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     padding: 80px 40px;
-    gap: 50px;
+    gap: 30px;
   }
 
   .intro article {
@@ -438,6 +646,18 @@ footer p {
 
   .catalog {
     padding: 90px 40px 120px;
+  }
+
+  .shop-note {
+    padding: 50px 40px 110px;
+  }
+
+  .shop-note > p:not(.eyebrow) {
+    font-size: 1.05rem;
+  }
+
+  .swipe-hint {
+    display: none;
   }
 
   .section-heading {
@@ -459,6 +679,15 @@ footer p {
   .custom-card {
     margin: 100px auto;
     padding: 70px 40px;
+  }
+
+  .request-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .request-form h3,
+  .full-field {
+    grid-column: 1 / -1;
   }
 
   footer {

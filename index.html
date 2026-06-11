@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Quicksand:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=18" />
   </head>
   <body>
     <header class="hero">
@@ -49,6 +49,24 @@
           <h2>同城配送</h2>
           <p>提前一天预约，配送时间更从容。</p>
         </article>
+        <article>
+          <span>04</span>
+          <h2>手写贺卡</h2>
+          <p>附赠精美手写贺卡，替你诉说温暖话语。</p>
+        </article>
+      </section>
+
+      <section class="shop-note" aria-labelledby="shop-note-title">
+        <p class="eyebrow">A NOTE FROM KISS KISS</p>
+        <h2 id="shop-note-title">一间有温度的花店</h2>
+        <p>
+          吻吻花坊，藏在杭州双浦的一方小小花房。我们相信，每一朵花都有自己的姿态，
+          每一束花也都承载着一份认真准备的心意。
+        </p>
+        <p>
+          从挑选当日花材，到花束的搭配与包装，我们坚持用心完成每一个细节。
+          无论是庆祝重要时刻，还是给普通日子添一点温柔，都愿这束花替你把心意好好送达。
+        </p>
       </section>
 
       <section class="catalog" id="bouquets">
@@ -57,9 +75,10 @@
             <p class="eyebrow">OUR BOUQUETS</p>
             <h2>今日花束</h2>
           </div>
-          <p>花有花期，价格亦随时令轻轻浮动，最终以当日花材与搭配为准。</p>
+          <p>花期有时，价格亦随时令浮动，以当日花材与搭配为准～</p>
         </div>
 
+        <p class="swipe-hint">左右滑动查看更多分类 <span aria-hidden="true">→</span></p>
         <div class="filters" role="group" aria-label="花束分类">
           <button class="filter active" data-filter="全部">全部</button>
           <button class="filter" data-filter="生日">生日</button>
@@ -109,13 +128,62 @@
             <strong id="dialog-price"></strong>
             <span>参考价格 · 随花期浮动</span>
           </div>
-          <button class="primary-button" id="order-button">生成咨询文案</button>
+          <button class="primary-button" id="order-button">加入备选</button>
         </div>
         <p class="copy-tip" id="copy-tip" aria-live="polite"></p>
       </div>
     </dialog>
 
-    <script src="catalog-data.js"></script>
-    <script src="script.js"></script>
+    <button class="shortlist-bar" id="shortlist-bar" type="button">
+      <span>我的备选</span>
+      <strong id="shortlist-count">0</strong>
+    </button>
+
+    <dialog class="shortlist-dialog" id="shortlist-dialog">
+      <div class="shortlist-heading">
+        <div>
+          <p class="eyebrow">MY PICKS</p>
+          <h2>我的备选</h2>
+          <p>先放进来慢慢比较，最多可保留 6 款。</p>
+        </div>
+        <button class="dialog-close shortlist-close" id="shortlist-close" aria-label="关闭">×</button>
+      </div>
+
+      <div class="shortlist-items" id="shortlist-items"></div>
+
+      <form class="request-form" id="request-form">
+        <h3>告诉我们你的需要</h3>
+        <label>
+          <span>赠送对象</span>
+          <input type="text" name="recipient" placeholder="例如：妈妈、朋友、爱人" />
+        </label>
+        <label>
+          <span>使用日期</span>
+          <input type="date" name="date" />
+        </label>
+        <label>
+          <span>预算</span>
+          <input type="text" name="budget" placeholder="例如：300 元左右" />
+        </label>
+        <label>
+          <span>配送或自取</span>
+          <select name="delivery">
+            <option value="">请选择</option>
+            <option value="同城配送">同城配送</option>
+            <option value="到店自取">到店自取</option>
+            <option value="暂未决定">暂未决定</option>
+          </select>
+        </label>
+        <label class="full-field">
+          <span>其他要求</span>
+          <textarea name="notes" rows="3" placeholder="例如：希望以粉色为主，需要手写贺卡"></textarea>
+        </label>
+        <button class="primary-button full-field" type="submit">生成并复制咨询清单</button>
+        <p class="form-tip full-field" id="form-tip" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <script src="catalog-data.js?v=18"></script>
+    <script src="script.js?v=18"></script>
   </body>
 </html>
