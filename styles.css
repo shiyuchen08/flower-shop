@@ -38,9 +38,9 @@ button {
   min-height: 78vh;
   padding: 20px;
   background:
-    linear-gradient(90deg, rgba(24, 43, 33, 0.72), rgba(24, 43, 33, 0.08)),
-    url("https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=85")
-      center/cover;
+    radial-gradient(circle at 78% 24%, rgba(226, 169, 143, 0.82), transparent 34%),
+    radial-gradient(circle at 72% 78%, rgba(219, 229, 220, 0.5), transparent 30%),
+    linear-gradient(135deg, #263d32 0%, #3e6753 55%, #78917d 100%);
   color: white;
 }
 

@@ -1,4 +1,4 @@
-const bouquets = [
+const legacyBouquets = [
   {
     id: "SR-001",
     name: "紫粉心愿",
@@ -34,36 +34,6 @@ const bouquets = [
     image: "birthday-260-a.jpg",
     description: "柔和裸粉色调配上舒展花枝，温暖大气，适合认真庆祝的重要生日。",
     materials: "粉玫瑰、蝴蝶兰、剑兰、红掌、季节配花",
-  },
-  {
-    id: "XM-002",
-    name: "温柔岁月",
-    category: "送长辈",
-    price: 328,
-    image:
-      "https://images.unsplash.com/photo-1567696153798-9111f9cd3d0d?auto=format&fit=crop&w=900&q=85",
-    description: "温柔雅致的粉紫色系，表达感谢、关心和长久陪伴。",
-    materials: "康乃馨、洋桔梗、紫罗兰、尤加利叶",
-  },
-  {
-    id: "XM-003",
-    name: "怦然心动",
-    category: "浪漫",
-    price: 398,
-    image:
-      "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=900&q=85",
-    description: "热烈却不张扬，适合认真地说一句喜欢或想念。",
-    materials: "红玫瑰、郁金香、洋牡丹、季节配花",
-  },
-  {
-    id: "XM-004",
-    name: "晴日散步",
-    category: "日常",
-    price: 168,
-    image:
-      "https://images.unsplash.com/photo-1509719662287-1413677a72a6?auto=format&fit=crop&w=900&q=85",
-    description: "像晴天散步一样轻松的小花束，适合送朋友，也适合送自己。",
-    materials: "小雏菊、洋甘菊、喷泉草、季节配花",
   },
   {
     id: "SR-005",
@@ -168,65 +138,13 @@ const bouquets = [
     description: "紫粉色调温柔清新，既适合庆祝生日，也适合探望时表达关怀。",
     materials: "康乃馨、洋桔梗、紫罗兰、季节配花",
   },
-  {
-    id: "XM-006",
-    name: "白色呼吸",
-    category: "日常",
-    price: 238,
-    image:
-      "https://images.unsplash.com/photo-1487070183336-b863922373d4?auto=format&fit=crop&w=900&q=85",
-    description: "干净克制的白绿色系，让家里多一点安静与自然。",
-    materials: "白玫瑰、洋桔梗、尤加利叶、季节配花",
-  },
-  {
-    id: "XM-007",
-    name: "生意兴隆",
-    category: "开业乔迁",
-    subcategory: "新店开业",
-    price: 688,
-    image:
-      "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85",
-    description: "明亮大气的开业花礼，为新店送上一份热闹又真诚的祝福。",
-    materials: "向日葵、红掌、百合、季节配花",
-  },
-  {
-    id: "XM-008",
-    name: "新居之喜",
-    category: "开业乔迁",
-    subcategory: "乔迁新居",
-    price: 368,
-    image:
-      "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=900&q=85",
-    description: "自然清新的乔迁花礼，为新家添一份温暖与生机。",
-    materials: "蝴蝶兰、百合、尤加利叶、季节配花",
-  },
-  {
-    id: "XM-009",
-    name: "纯白誓言",
-    category: "婚礼",
-    subcategory: "新娘手捧花",
-    price: 598,
-    image:
-      "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=85",
-    description: "轻盈优雅的新娘手捧花，为重要时刻留下温柔的注脚。",
-    materials: "白玫瑰、洋桔梗、铃兰、尤加利叶",
-  },
-  {
-    id: "XM-010",
-    name: "冬日祝福",
-    category: "节日",
-    subcategory: "圣诞节",
-    price: 298,
-    image:
-      "https://images.unsplash.com/photo-1548094967-e25a127d1f6d?auto=format&fit=crop&w=900&q=85",
-    description: "带着松木香气的节日花礼，把冬日祝福送到身边。",
-    materials: "红玫瑰、松枝、冬青果、棉花",
-  },
 ];
 
+const bouquets = window.catalogBouquets || legacyBouquets;
+
 const categoryChildren = {
-  开业乔迁: ["新店开业", "乔迁新居"],
-  婚礼: ["头车花", "跟车花", "新娘手捧花", "婚礼布置花艺"],
+  开业乔迁: ["新店开业", "乔迁、开工"],
+  婚礼: ["婚车装饰", "新娘手捧花", "婚礼布置花艺"],
   节日: [
     "情人节",
     "七夕",
@@ -257,6 +175,11 @@ function bouquetSubcategories(bouquet) {
 
 function bouquetPrice(bouquet, filter = activeFilter) {
   return bouquet.prices?.[filter] || bouquet.price;
+}
+
+function priceText(bouquet, filter = activeFilter) {
+  const price = bouquetPrice(bouquet, filter);
+  return price ? `¥${price}` : "价格面议";
 }
 
 function bouquetLabels(bouquet) {
@@ -290,7 +213,7 @@ function renderBouquets(filter = "全部") {
               <h3>${bouquet.name}</h3>
               <p>${bouquetLabels(bouquet)} · ${bouquet.id}</p>
             </div>
-            <strong>¥${bouquetPrice(bouquet, filter)}</strong>
+            <strong>${priceText(bouquet, filter)}</strong>
           </div>
         </article>
       `,
@@ -328,7 +251,7 @@ function openProduct(id) {
   document.querySelector("#dialog-materials").textContent =
     `参考花材：${selectedBouquet.materials}`;
   document.querySelector("#dialog-price").textContent =
-    `¥${bouquetPrice(selectedBouquet)}`;
+    priceText(selectedBouquet);
   document.querySelector("#copy-tip").textContent = "";
   dialog.showModal();
 }
@@ -371,7 +294,7 @@ document.querySelector("#dialog-close").addEventListener("click", () => {
 });
 
 document.querySelector("#order-button").addEventListener("click", async () => {
-  const message = `你好，我想咨询花束「${selectedBouquet.name}」（编号：${selectedBouquet.id}，参考价：¥${bouquetPrice(selectedBouquet)}），请问近期可以预订吗？`;
+  const message = `你好，我想咨询「${selectedBouquet.name}」（编号：${selectedBouquet.id}，参考价格：${priceText(selectedBouquet)}），请问近期可以预订吗？`;
 
   try {
     await navigator.clipboard.writeText(message);
