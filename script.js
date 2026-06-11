@@ -372,6 +372,149 @@ shortlistItems.addEventListener("click", (event) => {
   renderShortlist();
 });
 
+function loadConsultImage(src) {
+  return new Promise((resolve) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => resolve(null);
+    image.src = src;
+  });
+}
+
+function drawWrappedText(context, text, x, y, maxWidth, lineHeight, maxLines = 3) {
+  const characters = [...text];
+  let line = "";
+  let lineCount = 0;
+  for (const character of characters) {
+    const testLine = line + character;
+    if (context.measureText(testLine).width > maxWidth && line) {
+      context.fillText(line, x, y);
+      line = character;
+      y += lineHeight;
+      lineCount += 1;
+      if (lineCount >= maxLines - 1) break;
+    } else {
+      line = testLine;
+    }
+  }
+  if (lineCount < maxLines) context.fillText(line, x, y);
+  return y;
+}
+
+function drawCoverImage(context, image, x, y, width, height) {
+  if (!image) {
+    context.fillStyle = "#eeeae2";
+    context.fillRect(x, y, width, height);
+    return;
+  }
+  const scale = Math.max(width / image.width, height / image.height);
+  const sourceWidth = width / scale;
+  const sourceHeight = height / scale;
+  const sourceX = (image.width - sourceWidth) / 2;
+  const sourceY = (image.height - sourceHeight) / 2;
+  context.drawImage(
+    image,
+    sourceX,
+    sourceY,
+    sourceWidth,
+    sourceHeight,
+    x,
+    y,
+    width,
+    height,
+  );
+}
+
+async function createConsultationImage(selected, fields) {
+  const details = [
+    ["赠送对象", fields.recipient],
+    ["使用日期", fields.date],
+    ["预算", fields.budget],
+    ["配送或自取", fields.delivery],
+    ["其他要求", fields.notes],
+  ].filter(([, value]) => value);
+  const width = 900;
+  const headerHeight = 190;
+  const itemHeight = 210;
+  const detailsHeight = details.length ? 100 + details.length * 55 : 90;
+  const footerHeight = 110;
+  const height =
+    headerHeight + selected.length * itemHeight + detailsHeight + footerHeight;
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d");
+  const images = await Promise.all(
+    selected.map((bouquet) => loadConsultImage(bouquet.image)),
+  );
+
+  context.fillStyle = "#fffdf8";
+  context.fillRect(0, 0, width, height);
+  context.fillStyle = "#335846";
+  context.fillRect(0, 0, width, headerHeight);
+  context.fillStyle = "#ffffff";
+  context.font = '700 42px "Noto Serif SC", serif';
+  context.fillText("吻吻花坊 · 图文咨询单", 55, 76);
+  context.fillStyle = "rgba(255,255,255,.78)";
+  context.font = '24px "PingFang SC", sans-serif';
+  context.fillText(`共选择 ${selected.length} 款 · 价格与花材以当日确认为准`, 55, 130);
+
+  selected.forEach((bouquet, index) => {
+    const top = headerHeight + index * itemHeight;
+    context.fillStyle = index % 2 ? "#f7f3eb" : "#fffdf8";
+    context.fillRect(0, top, width, itemHeight);
+    drawCoverImage(context, images[index], 55, top + 25, 160, 160);
+    context.fillStyle = "#27322b";
+    context.font = '700 28px "Noto Serif SC", serif';
+    context.fillText(`${index + 1}. ${bouquet.name}`, 250, top + 68);
+    context.fillStyle = "#69736c";
+    context.font = '21px "PingFang SC", sans-serif';
+    context.fillText(`编号：${bouquet.id}`, 250, top + 110);
+    context.fillStyle = "#335846";
+    context.font = '700 25px "PingFang SC", sans-serif';
+    context.fillText(`参考价格：${priceText(bouquet, "全部")}`, 250, top + 153);
+  });
+
+  let detailY = headerHeight + selected.length * itemHeight + 58;
+  context.fillStyle = "#27322b";
+  context.font = '700 28px "Noto Serif SC", serif';
+  context.fillText("顾客需求", 55, detailY);
+  detailY += 50;
+  context.font = '22px "PingFang SC", sans-serif';
+  details.forEach(([label, value]) => {
+    context.fillStyle = "#69736c";
+    context.fillText(`${label}：`, 55, detailY);
+    context.fillStyle = "#27322b";
+    detailY = drawWrappedText(context, value, 190, detailY, 650, 34, 2);
+    detailY += 55;
+  });
+
+  context.fillStyle = "#335846";
+  context.fillRect(0, height - footerHeight, width, footerHeight);
+  context.fillStyle = "#ffffff";
+  context.font = '23px "PingFang SC", sans-serif';
+  context.fillText("联系电话：13282152868", 55, height - 63);
+  context.fillStyle = "rgba(255,255,255,.72)";
+  context.font = '19px "PingFang SC", sans-serif';
+  context.fillText("花期有时，以当日花材与搭配为准", 55, height - 28);
+
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) resolve(blob);
+      else reject(new Error("无法生成咨询单图片"));
+    }, "image/jpeg", 0.9);
+  });
+}
+
+function downloadConsultationImage(blob) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "吻吻花坊-咨询单.jpg";
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 document.querySelector("#request-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!shortlist.length) {
@@ -403,12 +546,50 @@ document.querySelector("#request-form").addEventListener("submit", async (event)
     ...(details.length ? ["", ...details] : []),
   ].join("\n");
 
+  const tip = document.querySelector("#form-tip");
+  const submitButton = event.currentTarget.querySelector('[type="submit"]');
+  submitButton.disabled = true;
+  submitButton.textContent = "正在生成图片…";
+
   try {
     await navigator.clipboard.writeText(message);
-    document.querySelector("#form-tip").textContent =
-      "咨询清单已复制，可以粘贴发送给花店。";
-  } catch {
-    document.querySelector("#form-tip").textContent = message;
+  } catch {}
+
+  try {
+    const blob = await createConsultationImage(selected, fields);
+    const file =
+      typeof File !== "undefined"
+        ? new File([blob], "吻吻花坊-咨询单.jpg", { type: "image/jpeg" })
+        : null;
+    if (file && navigator.canShare?.({ files: [file] })) {
+      try {
+        await navigator.share({
+          title: "吻吻花坊图文咨询单",
+          text: message,
+          files: [file],
+        });
+        tip.textContent = "图文咨询单已生成并打开分享菜单。";
+      } catch (shareError) {
+        if (shareError?.name === "AbortError") {
+          tip.textContent = "已取消分享，文字清单仍已复制。";
+        } else {
+          downloadConsultationImage(blob);
+          tip.textContent = "分享未能打开，图文咨询单已保存，文字也已复制。";
+        }
+      }
+    } else {
+      downloadConsultationImage(blob);
+      tip.textContent = "图文咨询单已下载，文字清单也已复制。";
+    }
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      tip.textContent = "已取消分享，文字清单仍已复制。";
+    } else {
+      tip.textContent = "图片生成失败，文字清单已复制，可以先发送文字咨询。";
+    }
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "生成图文咨询单";
   }
 });
 
