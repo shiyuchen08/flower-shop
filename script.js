@@ -112,7 +112,6 @@ const legacyBouquets = [
     id: "XR-007",
     name: "蜜桃告白",
     categories: ["生日", "浪漫"],
-    subcategories: ["情人节"],
     price: 198,
     image: "valentine-birthday-198.jpg",
     description: "一整束蜜桃玫瑰甜而热烈，适合生日祝福，也适合认真说出喜欢。",
@@ -122,11 +121,9 @@ const legacyBouquets = [
     id: "XR-008",
     name: "热烈心动",
     categories: ["生日", "浪漫"],
-    subcategories: ["情人节"],
     price: 198,
-    prices: { 情人节: 218 },
     image: "valentine-218-birthday-198.jpg",
-    description: "浓烈红玫瑰搭配大蝴蝶结，生日时热闹，情人节时更显坚定心意。",
+    description: "浓烈红玫瑰搭配大蝴蝶结，热闹又坚定，适合认真表达心意。",
     materials: "红玫瑰、蝴蝶结装饰",
   },
   {
@@ -140,9 +137,17 @@ const legacyBouquets = [
   },
 ];
 
-const bouquetSource = window.catalogBouquets
-  ? [...legacyBouquets, ...window.catalogBouquets]
-  : legacyBouquets;
+const fifthRoundBouquets = window.fifthRoundBouquets || [];
+const featuredBouquets = fifthRoundBouquets.filter((bouquet) => bouquet.featured);
+const regularFifthRoundBouquets = fifthRoundBouquets.filter(
+  (bouquet) => !bouquet.featured,
+);
+const bouquetSource = [
+  ...featuredBouquets,
+  ...legacyBouquets,
+  ...(window.catalogBouquets || []),
+  ...regularFifthRoundBouquets,
+];
 
 const bouquets = bouquetSource.map((bouquet) => {
   const categories = (bouquet.categories || [bouquet.category]).filter(
@@ -188,16 +193,11 @@ const categoryChildren = {
   开业乔迁: ["花篮", "花束"],
   婚礼: ["婚车装饰", "新娘手捧花", "婚礼布置"],
   节日: [
-    "情人节",
-    "七夕",
     "母亲节",
     "父亲节",
     "儿童节",
     "教师节",
     "清明节",
-    "中秋节",
-    "圣诞节",
-    "春节",
   ],
 };
 
@@ -341,6 +341,7 @@ function openProduct(id) {
     priceText(selectedBouquet);
   document.querySelector("#copy-tip").textContent = "";
   updateOrderButton();
+  dialog.scrollTop = 0;
   dialog.showModal();
 }
 
