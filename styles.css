@@ -137,22 +137,6 @@ button {
   box-shadow: 0 14px 38px rgba(39, 50, 43, 0.1);
 }
 
-.how-to::after {
-  content: "";
-  position: absolute;
-  width: 42px;
-  height: 42px;
-  border: 1px solid rgba(226, 169, 143, 0.48);
-  border-radius: 70% 30% 65% 35%;
-  transform: rotate(34deg);
-  pointer-events: none;
-}
-
-.how-to::after {
-  top: -14px;
-  right: 20px;
-}
-
 .how-to-title {
   position: relative;
 }
@@ -165,17 +149,6 @@ button {
   margin: 0;
   font-family: var(--serif);
   font-size: 1.4rem;
-}
-
-.petal-mark {
-  position: absolute;
-  top: 1px;
-  right: 8px;
-  width: 18px;
-  height: 18px;
-  border-radius: 70% 30% 65% 35%;
-  background: rgba(226, 169, 143, 0.35);
-  transform: rotate(-28deg);
 }
 
 .how-to ol {
@@ -193,7 +166,7 @@ button {
   align-items: center;
   gap: 12px;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.95rem;
 }
 
 .how-to li:last-child {
@@ -202,16 +175,42 @@ button {
 
 .how-to li span {
   color: var(--peach);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+}
+
+.service-lead {
+  display: flex;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 20px 0;
+  align-items: center;
+  gap: 16px;
+  color: var(--peach);
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.service-lead::before,
+.service-lead::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: rgba(226, 169, 143, 0.42);
+}
+
+.service-lead span {
+  flex: none;
 }
 
 .intro {
   display: grid;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 60px 20px;
+  padding: 42px 20px 60px;
   gap: 26px;
 }
 

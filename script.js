@@ -140,11 +140,53 @@ const legacyBouquets = [
   },
 ];
 
-const bouquets = window.catalogBouquets || legacyBouquets;
+const bouquetSource = window.catalogBouquets
+  ? [...legacyBouquets, ...window.catalogBouquets]
+  : legacyBouquets;
+
+const bouquets = bouquetSource.map((bouquet) => {
+  const categories = (bouquet.categories || [bouquet.category]).filter(
+    (category) => category && category !== "送长辈",
+  );
+  let subcategories = [
+    ...(bouquet.subcategories ||
+      (bouquet.subcategory ? [bouquet.subcategory] : [])),
+  ].map((subcategory) =>
+    subcategory === "婚礼布置花艺" ? "婚礼布置" : subcategory,
+  );
+
+  if (bouquet.id === "HB-048") {
+    return {
+      ...bouquet,
+      name: "婚车装饰",
+      categories: ["婚礼"],
+      subcategories: ["婚车装饰"],
+      description: "婚车装饰实拍案例，具体尺寸、花材与现场方案可联系花店沟通。",
+      materials: "按现场方案配置",
+    };
+  }
+
+  if (categories.includes("生日")) {
+    subcategories.push(bouquet.name.includes("布置") ? "生日布置" : "生日花束");
+  }
+  if (categories.includes("浪漫")) {
+    subcategories.push(bouquet.name.includes("布置") ? "浪漫布置" : "浪漫花束");
+  }
+  if (categories.includes("开业乔迁")) {
+    subcategories = subcategories.filter(
+      (subcategory) => !["新店开业", "乔迁、开工"].includes(subcategory),
+    );
+    subcategories.push(bouquet.name.includes("开业") ? "花篮" : "花束");
+  }
+
+  return { ...bouquet, categories, subcategories: [...new Set(subcategories)] };
+});
 
 const categoryChildren = {
-  开业乔迁: ["新店开业", "乔迁、开工"],
-  婚礼: ["婚车装饰", "新娘手捧花", "婚礼布置花艺"],
+  生日: ["生日花束", "生日布置"],
+  浪漫: ["浪漫花束", "浪漫布置"],
+  开业乔迁: ["花篮", "花束"],
+  婚礼: ["婚车装饰", "新娘手捧花", "婚礼布置"],
   节日: [
     "情人节",
     "七夕",
@@ -169,7 +211,7 @@ const shortlistItems = document.querySelector("#shortlist-items");
 const shortlistCount = document.querySelector("#shortlist-count");
 const orderButton = document.querySelector("#order-button");
 let selectedBouquet = null;
-let activeFilter = "全部";
+let activeFilter = "日常";
 let shortlist = JSON.parse(localStorage.getItem("flowerShortlist") || "[]")
   .filter((id) => bouquets.some((bouquet) => bouquet.id === id))
   .slice(0, 6);
@@ -230,7 +272,7 @@ function renderShortlist() {
     : '<p class="shortlist-empty">还没有加入备选的花，先去挑几款喜欢的吧。</p>';
 }
 
-function renderBouquets(filter = "全部") {
+function renderBouquets(filter = "日常") {
   activeFilter = filter;
   const visible =
     filter === "全部"
@@ -271,16 +313,17 @@ function renderSubfilters(category) {
   if (!children) {
     subfilters.classList.remove("visible");
     subfilters.innerHTML = "";
-    return;
+    return null;
   }
 
   subfilters.innerHTML = children
     .map(
-      (child) =>
-        `<button class="subfilter" data-filter="${child}">${child}</button>`,
+      (child, index) =>
+        `<button class="subfilter${index === 0 ? " active" : ""}" data-filter="${child}">${child}</button>`,
     )
     .join("");
   subfilters.classList.add("visible");
+  return children[0];
 }
 
 function openProduct(id) {
@@ -308,8 +351,8 @@ document.querySelector(".filters").addEventListener("click", (event) => {
   document.querySelectorAll(".filter").forEach((filter) => {
     filter.classList.toggle("active", filter === button);
   });
-  renderSubfilters(button.dataset.filter);
-  renderBouquets(button.dataset.filter);
+  const firstSubfilter = renderSubfilters(button.dataset.filter);
+  renderBouquets(firstSubfilter || button.dataset.filter);
 });
 
 subfilters.addEventListener("click", (event) => {
@@ -359,10 +402,9 @@ document.querySelector("#wechat-copy").addEventListener("click", async () => {
 
 document.querySelector("#address-view").addEventListener("click", () => {
   contactDialog.close();
-  document.querySelector("#store-address").scrollIntoView({
-    behavior: "smooth",
-    block: "center",
-  });
+  setTimeout(() => {
+    window.location.hash = "store-address";
+  }, 180);
 });
 
 orderButton.addEventListener("click", () => {

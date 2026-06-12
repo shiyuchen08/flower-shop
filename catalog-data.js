@@ -660,17 +660,17 @@ window.catalogBouquets = [
   },
   {
     "id": "HB-048",
-    "name": "开业花礼 01",
+    "name": "婚车装饰",
     "categories": [
-      "开业乔迁"
+      "婚礼"
     ],
     "subcategories": [
-      "新店开业"
+      "婚车装饰"
     ],
     "price": "198/对",
     "image": "catalog-046.jpg",
-    "description": "适合开业场合的花礼实拍款式，花材与祝福牌可按需求调整。",
-    "materials": "请联系花店确认当日花材"
+    "description": "婚车装饰实拍案例，具体尺寸、花材与现场方案可联系花店沟通。",
+    "materials": "按现场方案配置"
   },
   {
     "id": "HB-049",
@@ -797,5 +797,95 @@ window.catalogBouquets = [
     "image": "catalog-055.jpg",
     "description": "适合乔迁、开工场合的花礼实拍款式，花材与祝福牌可按需求调整。",
     "materials": "请联系花店确认当日花材"
+  },
+  {
+    "id": "RM-001",
+    "name": "粉玫瑰心形花束",
+    "categories": ["浪漫"],
+    "subcategories": ["浪漫花束"],
+    "price": "330",
+    "image": "romantic-330.jpg",
+    "description": "浅粉玫瑰围成柔和心形，搭配白色蝴蝶兰与轻盈丝带，适合温柔表达心意。",
+    "materials": "浅粉玫瑰、白色蝴蝶兰、丝带装饰"
+  },
+  {
+    "id": "RM-002",
+    "name": "红玫瑰蝴蝶兰心形花束",
+    "categories": ["浪漫"],
+    "subcategories": ["浪漫花束"],
+    "price": "380",
+    "image": "romantic-380-a.jpg",
+    "description": "红玫瑰心形花面搭配白色蝴蝶兰与珍珠装饰，热烈中带着精致仪式感。",
+    "materials": "红玫瑰、白色蝴蝶兰、珍珠装饰"
+  },
+  {
+    "id": "RM-003",
+    "name": "红玫瑰珍珠心形花束",
+    "categories": ["浪漫"],
+    "subcategories": ["浪漫花束"],
+    "price": "380",
+    "image": "romantic-380-b.jpg",
+    "description": "黑色包装衬托红玫瑰心形花面，以珍珠与蝴蝶结点缀，经典而浓烈。",
+    "materials": "红玫瑰、白色蝴蝶兰、珍珠与蝴蝶结装饰"
+  },
+  {
+    "id": "RM-004",
+    "name": "伯爵红茶玫瑰心形花束",
+    "categories": ["浪漫"],
+    "subcategories": ["浪漫花束"],
+    "price": "380",
+    "image": "romantic-earl-grey-380.jpg",
+    "description": "伯爵红茶色玫瑰组成浪漫心形，粉色丝带与黑色包装让色调更显优雅。",
+    "materials": "伯爵红茶玫瑰、粉色丝带装饰"
+  },
+  {
+    "id": "RM-005",
+    "name": "红玫瑰心形花束 01",
+    "categories": ["浪漫"],
+    "subcategories": ["浪漫花束"],
+    "price": "580",
+    "image": "romantic-580-a.jpg",
+    "description": "大束红玫瑰铺成饱满心形，黑色包装简洁大气，适合重要的浪漫时刻。",
+    "materials": "红玫瑰、丝带装饰"
+  },
+  {
+    "id": "RM-006",
+    "name": "弗洛伊德玫瑰心形花束",
+    "categories": ["浪漫"],
+    "subcategories": ["浪漫花束"],
+    "price": "580",
+    "image": "romantic-floyd-580.jpg",
+    "description": "亮丽弗洛伊德玫瑰组成心形花面，搭配同色飘带，鲜明又充满热烈心意。",
+    "materials": "弗洛伊德玫瑰、飘带装饰"
+  },
+  {
+    "id": "RM-007",
+    "name": "红玫瑰心形花束 02",
+    "categories": ["浪漫"],
+    "subcategories": ["浪漫花束"],
+    "price": "680",
+    "image": "romantic-680-a.jpg",
+    "description": "丰盈红玫瑰围成大心形，白色包装和蝴蝶结让浓烈爱意更显郑重。",
+    "materials": "红玫瑰、白色装饰花、丝带装饰"
+  },
+  {
+    "id": "RM-008",
+    "name": "卡布奇诺玫瑰心形花束",
+    "categories": ["浪漫"],
+    "subcategories": ["浪漫花束"],
+    "price": "680",
+    "image": "romantic-cappuccino-680.jpg",
+    "description": "卡布奇诺玫瑰组成柔和心形，暖棕包装层次丰盈，低调而有高级感。",
+    "materials": "卡布奇诺玫瑰、珍珠与丝带装饰"
+  },
+  {
+    "id": "RM-009",
+    "name": "伯爵红茶玫瑰大号心形花束",
+    "categories": ["浪漫"],
+    "subcategories": ["浪漫花束"],
+    "price": "780",
+    "image": "romantic-780.jpg",
+    "description": "大号伯爵红茶玫瑰心形花束，沉静粉紫花色搭配黑色包装，浪漫且富有质感。",
+    "materials": "伯爵红茶玫瑰、丝带装饰"
   }
 ];

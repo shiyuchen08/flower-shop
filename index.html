@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Quicksand:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=26" />
+    <link rel="stylesheet" href="styles.css?v=30" />
   </head>
   <body>
     <header class="hero">
@@ -35,7 +35,6 @@
     <main>
       <section class="how-to" aria-label="选花指南">
         <div class="how-to-title">
-          <span class="petal-mark" aria-hidden="true"></span>
           <p class="eyebrow">HOW TO CHOOSE</p>
           <h2>选花指南</h2>
         </div>
@@ -46,6 +45,8 @@
           <li><span>04</span>生成图文咨询单，联系花店</li>
         </ol>
       </section>
+
+      <p class="service-lead"><span>选好心意，接下来交给我们</span></p>
 
       <section class="intro" aria-label="服务特色">
         <article>
@@ -81,15 +82,13 @@
 
         <p class="swipe-hint">左右滑动查看更多分类 <span aria-hidden="true">→</span></p>
         <div class="filters" role="group" aria-label="花束分类">
-          <button class="filter active" data-filter="全部">全部</button>
-          <button class="filter" data-filter="生日">生日</button>
+          <button class="filter active" data-filter="日常">日常</button>
           <button class="filter" data-filter="浪漫">浪漫</button>
-          <button class="filter" data-filter="送长辈">送长辈</button>
-          <button class="filter" data-filter="日常">日常</button>
-          <button class="filter" data-filter="探望慰问">探望慰问</button>
+          <button class="filter" data-filter="生日">生日</button>
+          <button class="filter" data-filter="节日">节日</button>
           <button class="filter" data-filter="开业乔迁">开业乔迁</button>
           <button class="filter" data-filter="婚礼">婚礼</button>
-          <button class="filter" data-filter="节日">节日</button>
+          <button class="filter" data-filter="探望慰问">探望慰问</button>
         </div>
         <div class="subfilters" id="subfilters" role="group" aria-label="细分类"></div>
 
@@ -209,7 +208,7 @@
       </form>
     </dialog>
 
-    <script src="catalog-data.js?v=26"></script>
-    <script src="script.js?v=26"></script>
+    <script src="catalog-data.js?v=30"></script>
+    <script src="script.js?v=30"></script>
   </body>
 </html>
