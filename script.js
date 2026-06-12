@@ -386,8 +386,34 @@ document.querySelector("#contact-open").addEventListener("click", () => {
   contactDialog.showModal();
 });
 
+document.querySelector("#custom-contact-open").addEventListener("click", () => {
+  document.querySelector("#contact-tip").textContent =
+    "可先复制定制需求模板，再添加微信联系花店。";
+  contactDialog.showModal();
+});
+
 document.querySelector("#contact-close").addEventListener("click", () => {
   contactDialog.close();
+});
+
+document.querySelector("#custom-template-copy").addEventListener("click", async () => {
+  const template = [
+    "你好，我想咨询定制花束：",
+    "赠送对象：",
+    "使用日期：",
+    "预算：",
+    "喜欢的颜色：",
+    "配送或自取：",
+    "其他要求：",
+  ].join("\n");
+  try {
+    await navigator.clipboard.writeText(template);
+    document.querySelector("#contact-tip").textContent =
+      "定制需求模板已复制，可粘贴到微信填写。";
+  } catch {
+    document.querySelector("#contact-tip").textContent =
+      "请添加微信后，告诉我们赠送对象、日期、预算和喜欢的颜色。";
+  }
 });
 
 document.querySelector("#wechat-copy").addEventListener("click", async () => {

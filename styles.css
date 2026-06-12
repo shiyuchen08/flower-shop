@@ -544,6 +544,17 @@ footer p {
   grid-column: 1 / -1;
 }
 
+.custom-template-button {
+  min-height: 48px;
+  border: 1px solid var(--peach);
+  grid-column: 1 / -1;
+  color: var(--ink);
+  background: rgba(226, 169, 143, 0.14);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
 .contact-actions .secondary-button {
   border: 1px solid var(--line);
   background: transparent;
