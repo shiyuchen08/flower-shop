@@ -161,6 +161,7 @@ const categoryChildren = {
 
 const grid = document.querySelector("#bouquet-grid");
 const dialog = document.querySelector("#product-dialog");
+const contactDialog = document.querySelector("#contact-dialog");
 const subfilters = document.querySelector("#subfilters");
 const shortlistBar = document.querySelector("#shortlist-bar");
 const shortlistDialog = document.querySelector("#shortlist-dialog");
@@ -337,6 +338,33 @@ document.querySelector("#dialog-close").addEventListener("click", () => {
   dialog.close();
 });
 
+document.querySelector("#contact-open").addEventListener("click", () => {
+  document.querySelector("#contact-tip").textContent = "";
+  contactDialog.showModal();
+});
+
+document.querySelector("#contact-close").addEventListener("click", () => {
+  contactDialog.close();
+});
+
+document.querySelector("#wechat-copy").addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText("wwhf1371856693");
+    document.querySelector("#contact-tip").textContent = "微信号已复制";
+  } catch {
+    document.querySelector("#contact-tip").textContent =
+      "微信号：wwhf1371856693，请长按复制";
+  }
+});
+
+document.querySelector("#address-view").addEventListener("click", () => {
+  contactDialog.close();
+  document.querySelector("#store-address").scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+  });
+});
+
 orderButton.addEventListener("click", () => {
   const existingIndex = shortlist.indexOf(selectedBouquet.id);
   if (existingIndex >= 0) {
@@ -375,6 +403,7 @@ shortlistItems.addEventListener("click", (event) => {
 function loadConsultImage(src) {
   return new Promise((resolve) => {
     const image = new Image();
+    image.crossOrigin = "anonymous";
     image.onload = () => resolve(image);
     image.onerror = () => resolve(null);
     image.src = src;
@@ -433,70 +462,77 @@ async function createConsultationImage(selected, fields) {
     ["配送或自取", fields.delivery],
     ["其他要求", fields.notes],
   ].filter(([, value]) => value);
+  const heroImageUrl =
+    "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=85";
   const width = 900;
-  const headerHeight = 190;
-  const itemHeight = 210;
-  const detailsHeight = details.length ? 100 + details.length * 55 : 90;
-  const footerHeight = 110;
+  const headerHeight = 250;
+  const itemHeight = 300;
+  const detailsHeight = details.length ? 100 + details.length * 55 : 28;
+  const footerHeight = 72;
   const height =
     headerHeight + selected.length * itemHeight + detailsHeight + footerHeight;
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
   const context = canvas.getContext("2d");
-  const images = await Promise.all(
-    selected.map((bouquet) => loadConsultImage(bouquet.image)),
-  );
+  const [heroImage, ...images] = await Promise.all([
+    loadConsultImage(heroImageUrl),
+    ...selected.map((bouquet) => loadConsultImage(bouquet.image)),
+  ]);
 
   context.fillStyle = "#fffdf8";
   context.fillRect(0, 0, width, height);
-  context.fillStyle = "#335846";
+  context.save();
+  context.filter = "blur(5px)";
+  drawCoverImage(context, heroImage, -12, -12, width + 24, headerHeight + 24);
+  context.restore();
+  context.fillStyle = "rgba(24, 43, 33, .58)";
   context.fillRect(0, 0, width, headerHeight);
   context.fillStyle = "#ffffff";
-  context.font = '700 42px "Noto Serif SC", serif';
-  context.fillText("吻吻花坊 · 图文咨询单", 55, 76);
+  context.font = '700 46px "Noto Serif SC", serif';
+  context.fillText("吻吻花坊 · 图文咨询单", 55, 102);
   context.fillStyle = "rgba(255,255,255,.78)";
   context.font = '24px "PingFang SC", sans-serif';
-  context.fillText(`共选择 ${selected.length} 款 · 价格与花材以当日确认为准`, 55, 130);
+  context.fillText(`共选择 ${selected.length} 款 · 价格与花材以当日确认为准`, 55, 162);
+  context.fillStyle = "rgba(255,255,255,.55)";
+  context.fillRect(55, 195, 96, 2);
 
   selected.forEach((bouquet, index) => {
     const top = headerHeight + index * itemHeight;
     context.fillStyle = index % 2 ? "#f7f3eb" : "#fffdf8";
     context.fillRect(0, top, width, itemHeight);
-    drawCoverImage(context, images[index], 55, top + 25, 160, 160);
+    drawCoverImage(context, images[index], 55, top + 28, 310, 244);
     context.fillStyle = "#27322b";
-    context.font = '700 28px "Noto Serif SC", serif';
-    context.fillText(`${index + 1}. ${bouquet.name}`, 250, top + 68);
-    context.fillStyle = "#69736c";
-    context.font = '21px "PingFang SC", sans-serif';
-    context.fillText(`编号：${bouquet.id}`, 250, top + 110);
+    context.font = '700 30px "Noto Serif SC", serif';
+    drawWrappedText(context, bouquet.name, 410, top + 92, 430, 42, 2);
     context.fillStyle = "#335846";
-    context.font = '700 25px "PingFang SC", sans-serif';
-    context.fillText(`参考价格：${priceText(bouquet, "全部")}`, 250, top + 153);
+    context.font = '700 27px "PingFang SC", sans-serif';
+    context.fillText(`参考价格：${priceText(bouquet, "全部")}`, 410, top + 188);
+    context.fillStyle = "rgba(51, 88, 70, .25)";
+    context.fillRect(410, top + 218, 80, 2);
   });
 
-  let detailY = headerHeight + selected.length * itemHeight + 58;
-  context.fillStyle = "#27322b";
-  context.font = '700 28px "Noto Serif SC", serif';
-  context.fillText("顾客需求", 55, detailY);
-  detailY += 50;
-  context.font = '22px "PingFang SC", sans-serif';
-  details.forEach(([label, value]) => {
-    context.fillStyle = "#69736c";
-    context.fillText(`${label}：`, 55, detailY);
+  if (details.length) {
+    let detailY = headerHeight + selected.length * itemHeight + 58;
     context.fillStyle = "#27322b";
-    detailY = drawWrappedText(context, value, 190, detailY, 650, 34, 2);
-    detailY += 55;
-  });
+    context.font = '700 28px "Noto Serif SC", serif';
+    context.fillText("顾客需求", 55, detailY);
+    detailY += 50;
+    context.font = '22px "PingFang SC", sans-serif';
+    details.forEach(([label, value]) => {
+      context.fillStyle = "#69736c";
+      context.fillText(`${label}：`, 55, detailY);
+      context.fillStyle = "#27322b";
+      detailY = drawWrappedText(context, value, 190, detailY, 650, 34, 2);
+      detailY += 55;
+    });
+  }
 
   context.fillStyle = "#335846";
   context.fillRect(0, height - footerHeight, width, footerHeight);
   context.fillStyle = "#ffffff";
   context.font = '23px "PingFang SC", sans-serif';
-  context.fillText("联系电话：13282152868", 55, height - 63);
-  context.fillStyle = "rgba(255,255,255,.72)";
-  context.font = '19px "PingFang SC", sans-serif';
-  context.fillText("花期有时，以当日花材与搭配为准", 55, height - 28);
+  context.fillText("联系电话：13282152868", 55, height - 25);
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
@@ -528,7 +564,7 @@ document.querySelector("#request-form").addEventListener("submit", async (event)
     .filter(Boolean);
   const lines = selected.map(
     (bouquet, index) =>
-      `${index + 1}. ${bouquet.name}（编号：${bouquet.id}，参考价格：${priceText(bouquet, "全部")}）`,
+      `${index + 1}. ${bouquet.name}（参考价格：${priceText(bouquet, "全部")}）`,
   );
   const details = [
     ["赠送对象", fields.recipient],

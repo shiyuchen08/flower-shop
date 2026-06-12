@@ -15,13 +15,13 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Quicksand:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20" />
+    <link rel="stylesheet" href="styles.css?v=26" />
   </head>
   <body>
     <header class="hero">
       <nav class="nav">
         <a class="brand" href="#">吻吻花坊</a>
-        <a class="nav-contact" href="#contact">联系花店</a>
+        <button class="nav-contact" id="contact-open" type="button">联系花店</button>
       </nav>
 
       <div class="hero-copy">
@@ -33,17 +33,17 @@
     </header>
 
     <main>
-      <section class="how-to" aria-label="选花使用说明">
+      <section class="how-to" aria-label="选花指南">
         <div class="how-to-title">
           <span class="petal-mark" aria-hidden="true"></span>
           <p class="eyebrow">HOW TO CHOOSE</p>
-          <h2>选花很简单</h2>
+          <h2>选花指南</h2>
         </div>
         <ol>
-          <li><span>01</span>浏览喜欢的花</li>
-          <li><span>02</span>加入我的备选</li>
+          <li><span>01</span>点击喜欢的花束图片</li>
+          <li><span>02</span>下滑，点击“加入我的备选”</li>
           <li><span>03</span>填写日期与预算</li>
-          <li><span>04</span>复制清单联系花店</li>
+          <li><span>04</span>生成图文咨询单，联系花店</li>
         </ol>
       </section>
 
@@ -68,19 +68,6 @@
           <h2>手写贺卡</h2>
           <p>附赠精美手写贺卡，替你诉说温暖话语。</p>
         </article>
-      </section>
-
-      <section class="shop-note" aria-labelledby="shop-note-title">
-        <p class="eyebrow">A NOTE FROM KISS KISS</p>
-        <h2 id="shop-note-title">花店小记</h2>
-        <p>
-          吻吻花坊，藏在杭州双浦的一方小小花房。我们相信，每一朵花都有自己的姿态，
-          每一束花也都承载着一份认真准备的心意。
-        </p>
-        <p>
-          从挑选当日花材，到花束的搭配与包装，我们坚持用心完成每一个细节。
-          无论是庆祝重要时刻，还是给普通日子添一点温柔，都愿这束花替你把心意好好送达。
-        </p>
       </section>
 
       <section class="catalog" id="bouquets">
@@ -125,9 +112,33 @@
       <div class="contact-list">
         <p><strong>营业时间</strong> 每日 08:00–18:00</p>
         <p><strong>联系电话</strong> <a href="tel:13282152868">13282152868</a></p>
-        <p><strong>门店地址</strong> 浙江省杭州市西湖区双浦镇袁浦街道73号</p>
+        <p id="store-address"><strong>门店地址</strong> 浙江省杭州市西湖区双浦镇袁浦街道73号</p>
       </div>
     </footer>
+
+    <dialog class="contact-dialog" id="contact-dialog">
+      <button class="dialog-close" id="contact-close" aria-label="关闭">×</button>
+      <div class="contact-profile">
+        <div class="owner-avatar">
+          <img src="owner-avatar.jpg" alt="吻吻花坊主理人" />
+        </div>
+        <p class="eyebrow">CONTACT THE FLORIST</p>
+        <h2>吻吻花坊主理人</h2>
+        <p class="contact-intro">为你搭配适合心意与场合的花</p>
+      </div>
+      <div class="contact-details">
+        <p><span>微信号</span><strong>wwhf1371856693</strong></p>
+        <p><span>联系电话</span><strong>13282152868</strong></p>
+        <p><span>营业时间</span><strong>每日 08:00–18:00</strong></p>
+        <p><span>门店地址</span><strong>杭州市西湖区双浦镇袁浦街道73号</strong></p>
+      </div>
+      <div class="contact-actions">
+        <button class="primary-button" id="wechat-copy" type="button">复制微信号</button>
+        <a class="secondary-button" href="tel:13282152868">拨打电话</a>
+        <button class="secondary-button" id="address-view" type="button">查看花店地址</button>
+      </div>
+      <p class="contact-tip" id="contact-tip" aria-live="polite"></p>
+    </dialog>
 
     <dialog class="product-dialog" id="product-dialog">
       <button class="dialog-close" id="dialog-close" aria-label="关闭">×</button>
@@ -198,7 +209,7 @@
       </form>
     </dialog>
 
-    <script src="catalog-data.js?v=20"></script>
-    <script src="script.js?v=20"></script>
+    <script src="catalog-data.js?v=26"></script>
+    <script src="script.js?v=26"></script>
   </body>
 </html>

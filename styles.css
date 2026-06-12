@@ -60,8 +60,13 @@ button {
 }
 
 .nav-contact {
+  padding: 0 0 4px;
+  border: 0;
   padding-bottom: 4px;
   border-bottom: 1px solid currentColor;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
   font-size: 0.88rem;
 }
 
@@ -132,8 +137,7 @@ button {
   box-shadow: 0 14px 38px rgba(39, 50, 43, 0.1);
 }
 
-.how-to::after,
-.shop-note::after {
+.how-to::after {
   content: "";
   position: absolute;
   width: 42px;
@@ -235,48 +239,6 @@ footer p {
   color: var(--muted);
   font-size: 0.85rem;
   line-height: 1.8;
-}
-
-.shop-note {
-  position: relative;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 30px 20px 80px;
-}
-
-.shop-note::before {
-  content: "";
-  display: block;
-  width: 56px;
-  height: 1px;
-  margin-bottom: 24px;
-  background: var(--peach);
-}
-
-.shop-note::after {
-  right: 28px;
-  bottom: 64px;
-  width: 54px;
-  height: 54px;
-  opacity: 0.55;
-}
-
-.shop-note h2 {
-  max-width: 700px;
-  margin: 0 0 26px;
-  font-family: var(--serif);
-  font-size: clamp(2rem, 7vw, 3rem);
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.shop-note > p:not(.eyebrow) {
-  max-width: 850px;
-  margin: 0 0 18px;
-  color: var(--muted);
-  font-family: var(--serif);
-  font-size: 0.95rem;
-  line-height: 2.1;
 }
 
 .catalog {
@@ -491,6 +453,110 @@ footer p {
   border: 0;
   color: var(--ink);
   background: var(--paper);
+}
+
+.contact-dialog {
+  width: min(90vw, 430px);
+  max-height: 90vh;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 24px 70px rgba(22, 31, 26, 0.28);
+}
+
+.contact-dialog::backdrop {
+  background: rgba(22, 31, 26, 0.72);
+}
+
+.contact-profile {
+  padding: 34px 28px 24px;
+  text-align: center;
+  background: var(--cream);
+}
+
+.owner-avatar {
+  width: 112px;
+  height: 112px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  border: 4px solid white;
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(39, 50, 43, 0.16);
+}
+
+.owner-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transform: scale(1.28);
+}
+
+.contact-profile .eyebrow {
+  margin-bottom: 8px;
+  color: var(--peach);
+}
+
+.contact-profile h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.55rem;
+}
+
+.contact-intro {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.contact-details {
+  padding: 20px 28px 10px;
+}
+
+.contact-details p {
+  display: grid;
+  margin: 0;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.contact-details span {
+  color: var(--muted);
+}
+
+.contact-details strong {
+  font-weight: 600;
+}
+
+.contact-actions {
+  display: grid;
+  padding: 14px 28px 4px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.contact-actions .primary-button {
+  grid-column: 1 / -1;
+}
+
+.contact-actions .secondary-button {
+  border: 1px solid var(--line);
+  background: transparent;
+}
+
+.contact-tip {
+  min-height: 36px;
+  margin: 0;
+  padding: 8px 28px 14px;
+  color: var(--green);
+  font-size: 0.75rem;
+  text-align: center;
 }
 
 .product-dialog::backdrop {
@@ -777,14 +843,6 @@ footer p {
 
   .catalog {
     padding: 90px 40px 120px;
-  }
-
-  .shop-note {
-    padding: 50px 40px 110px;
-  }
-
-  .shop-note > p:not(.eyebrow) {
-    font-size: 1.05rem;
   }
 
   .swipe-hint {
