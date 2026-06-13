@@ -382,7 +382,7 @@ function renderSubfilters(category) {
 
 function openProduct(id) {
   selectedBouquet = bouquets.find((bouquet) => bouquet.id === id);
-  document.querySelector("#dialog-image").src = selectedBouquet.image;
+  document.querySelector("#dialog-image").src = thumbnailFor(selectedBouquet.image);
   document.querySelector("#dialog-image").alt = `${selectedBouquet.name}花束`;
   document.querySelector("#dialog-tag").textContent =
     `${bouquetLabels(selectedBouquet)} · ${selectedBouquet.id}`;
@@ -580,7 +580,7 @@ async function createConsultationImage(selected, fields) {
   const context = canvas.getContext("2d");
   const [heroImage, ...images] = await Promise.all([
     loadConsultImage(heroImageUrl),
-    ...selected.map((bouquet) => loadConsultImage(bouquet.image)),
+    ...selected.map((bouquet) => loadConsultImage(thumbnailFor(bouquet.image))),
   ]);
 
   context.fillStyle = "#fffdf8";
