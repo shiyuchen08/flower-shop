@@ -101,15 +101,20 @@ const legacyBouquets = [
 ];
 
 const fifthRoundBouquets = window.fifthRoundBouquets || [];
-const featuredBouquets = fifthRoundBouquets.filter((bouquet) => bouquet.featured);
-const regularFifthRoundBouquets = fifthRoundBouquets.filter(
-  (bouquet) => !bouquet.featured,
-);
+const sixthRoundBouquets = window.sixthRoundBouquets || [];
+const featuredBouquets = [
+  ...sixthRoundBouquets.filter((bouquet) => bouquet.featured),
+  ...fifthRoundBouquets.filter((bouquet) => bouquet.featured),
+];
+const regularAdditionalBouquets = [
+  ...fifthRoundBouquets.filter((bouquet) => !bouquet.featured),
+  ...sixthRoundBouquets.filter((bouquet) => !bouquet.featured),
+];
 const bouquetSource = [
   ...featuredBouquets,
   ...legacyBouquets,
   ...(window.catalogBouquets || []),
-  ...regularFifthRoundBouquets,
+  ...regularAdditionalBouquets,
 ];
 const bouquetNameOverrides = window.bouquetNameOverrides || {};
 
