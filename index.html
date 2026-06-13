@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Quicksand:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=44" />
+    <link rel="stylesheet" href="styles.css?v=52" />
   </head>
   <body>
     <header class="hero">
@@ -66,8 +66,8 @@
         </article>
         <article>
           <span>04</span>
-          <h2>手写贺卡</h2>
-          <p>附赠精美手写贺卡，替你诉说温暖话语。</p>
+          <h2>贺卡服务</h2>
+          <p>手写、打印贺卡都可以。</p>
         </article>
       </section>
 
@@ -164,6 +164,12 @@
       <strong id="shortlist-count">0</strong>
     </button>
 
+    <button class="music-toggle" id="music-toggle" type="button" aria-pressed="false">
+      <span class="music-disc" aria-hidden="true">♪</span>
+      <span class="music-label">听听花开的声音</span>
+    </button>
+    <audio id="flower-music" src="flower-music.mp3" preload="none" loop></audio>
+
     <dialog class="shortlist-dialog" id="shortlist-dialog">
       <div class="shortlist-heading">
         <div>
@@ -209,9 +215,9 @@
       </form>
     </dialog>
 
-    <script src="catalog-data.js?v=44"></script>
-    <script src="fifth-round-data.js?v=44"></script>
-    <script src="name-overrides.js?v=44"></script>
-    <script src="script.js?v=44"></script>
+    <script src="catalog-data.js?v=52"></script>
+    <script src="fifth-round-data.js?v=52"></script>
+    <script src="name-overrides.js?v=52"></script>
+    <script src="script.js?v=52"></script>
   </body>
 </html>

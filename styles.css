@@ -673,12 +673,12 @@ footer p {
 .shortlist-bar {
   position: fixed;
   z-index: 8;
-  right: 16px;
+  right: 14px;
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-  left: 16px;
+  left: auto;
   display: none;
-  min-height: 50px;
-  padding: 0 18px;
+  min-height: 42px;
+  padding: 0 12px 0 14px;
   border: 0;
   border-radius: 100px;
   align-items: center;
@@ -689,6 +689,7 @@ footer p {
   box-shadow: 0 10px 28px rgba(39, 50, 43, 0.28);
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.78rem;
 }
 
 .shortlist-bar.visible {
@@ -704,6 +705,58 @@ footer p {
   color: var(--green);
   background: white;
   font-size: 0.75rem;
+}
+
+.music-toggle {
+  position: fixed;
+  z-index: 7;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  left: 14px;
+  display: flex;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  color: var(--ink);
+  background: transparent;
+  box-shadow: 0 8px 24px rgba(39, 50, 43, 0.16);
+  cursor: pointer;
+  transition: bottom 0.3s ease;
+}
+
+.music-disc {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  place-items: center;
+  color: white;
+  background: radial-gradient(circle at center, var(--green) 0 58%, #35443b 59% 100%);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.music-label {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  font-size: 0.68rem;
+  transition: max-width 0.35s ease, opacity 0.25s ease;
+}
+
+.music-toggle.playing .music-disc {
+  animation: music-spin 5s linear infinite;
+}
+
+@keyframes music-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .shortlist-dialog {
@@ -843,6 +896,24 @@ footer p {
 }
 
 @media (min-width: 720px) {
+  .music-toggle {
+    width: auto;
+    padding: 0;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .music-toggle:hover .music-label,
+  .music-toggle.playing .music-label {
+    max-width: 120px;
+    opacity: 1;
+  }
+
+  .music-toggle {
+    bottom: 18px;
+    left: 18px;
+  }
+
   .shortlist-bar {
     right: 18px;
     bottom: 18px;

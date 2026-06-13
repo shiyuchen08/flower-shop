@@ -266,32 +266,26 @@ window.catalogBouquets = [
   },
   {
     "id": "HB-019",
-    "name": "父亲节花束 07",
+    "name": "粉玫瑰花束",
     "categories": [
-      "送长辈",
-      "节日"
+      "日常"
     ],
-    "subcategories": [
-      "父亲节"
-    ],
+    "subcategories": [],
     "price": "238",
     "image": "catalog-019.jpg",
-    "description": "适合父亲节场合的实拍花束，花材会随花期与当日供应适当调整。",
+    "description": "日常花束实拍款式，花材会随花期与当日供应适当调整。",
     "materials": "请联系花店确认当日花材"
   },
   {
     "id": "HB-020",
-    "name": "父亲节花束 08",
+    "name": "紫粉玫瑰蝴蝶兰花束",
     "categories": [
-      "送长辈",
-      "节日"
+      "日常"
     ],
-    "subcategories": [
-      "父亲节"
-    ],
+    "subcategories": [],
     "price": "198",
     "image": "catalog-020.jpg",
-    "description": "适合父亲节场合的实拍花束，花材会随花期与当日供应适当调整。",
+    "description": "日常花束实拍款式，花材会随花期与当日供应适当调整。",
     "materials": "请联系花店确认当日花材"
   },
   {
@@ -447,7 +441,7 @@ window.catalogBouquets = [
     "subcategories": [
       "婚车装饰"
     ],
-    "price": "138",
+    "price": "1380",
     "image": "catalog-032.jpg",
     "description": "婚车装饰实拍案例，具体尺寸、花材与现场方案可联系花店沟通。",
     "materials": "按现场方案配置"
@@ -648,7 +642,7 @@ window.catalogBouquets = [
   },
   {
     "id": "HB-049",
-    "name": "开业花礼 02",
+    "name": "大麦（大卖）花篮",
     "categories": [
       "开业乔迁"
     ],
@@ -690,7 +684,7 @@ window.catalogBouquets = [
   },
   {
     "id": "HB-052",
-    "name": "开业花礼 03",
+    "name": "绿色小清新开业花篮",
     "categories": [
       "开业乔迁"
     ],

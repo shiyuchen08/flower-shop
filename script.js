@@ -168,11 +168,45 @@ const shortlistDialog = document.querySelector("#shortlist-dialog");
 const shortlistItems = document.querySelector("#shortlist-items");
 const shortlistCount = document.querySelector("#shortlist-count");
 const orderButton = document.querySelector("#order-button");
+const music = document.querySelector("#flower-music");
+const musicToggle = document.querySelector("#music-toggle");
 let selectedBouquet = null;
 let activeFilter = "日常";
 let shortlist = JSON.parse(localStorage.getItem("flowerShortlist") || "[]")
   .filter((id) => bouquets.some((bouquet) => bouquet.id === id))
   .slice(0, 6);
+
+music.volume = 0.24;
+
+function updateMusicButton(isPlaying) {
+  musicToggle.classList.toggle("playing", isPlaying);
+  musicToggle.setAttribute("aria-pressed", String(isPlaying));
+  musicToggle.querySelector(".music-label").textContent = isPlaying
+    ? "暂停花店音乐"
+    : localStorage.getItem("flowerMusicPreference") === "playing"
+      ? "继续播放花店音乐"
+      : "听听花开的声音";
+}
+
+musicToggle.addEventListener("click", async () => {
+  if (music.paused) {
+    try {
+      await music.play();
+      localStorage.setItem("flowerMusicPreference", "playing");
+      updateMusicButton(true);
+    } catch {
+      updateMusicButton(false);
+    }
+  } else {
+    music.pause();
+    localStorage.setItem("flowerMusicPreference", "paused");
+    updateMusicButton(false);
+  }
+});
+
+music.addEventListener("pause", () => updateMusicButton(false));
+music.addEventListener("play", () => updateMusicButton(true));
+updateMusicButton(false);
 
 function bouquetCategories(bouquet) {
   return bouquet.categories || [bouquet.category];
