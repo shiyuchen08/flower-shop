@@ -102,9 +102,16 @@ const legacyBouquets = [
 
 const fifthRoundBouquets = window.fifthRoundBouquets || [];
 const sixthRoundBouquets = window.sixthRoundBouquets || [];
-const featuredBouquets = [
+const featuredPriority = ["DL-003", "DW-007"];
+const allFeaturedBouquets = [
   ...sixthRoundBouquets.filter((bouquet) => bouquet.featured),
   ...fifthRoundBouquets.filter((bouquet) => bouquet.featured),
+];
+const featuredBouquets = [
+  ...featuredPriority
+    .map((id) => allFeaturedBouquets.find((bouquet) => bouquet.id === id))
+    .filter(Boolean),
+  ...allFeaturedBouquets.filter((bouquet) => !featuredPriority.includes(bouquet.id)),
 ];
 const regularAdditionalBouquets = [
   ...fifthRoundBouquets.filter((bouquet) => !bouquet.featured),
@@ -212,6 +219,24 @@ musicToggle.addEventListener("click", async () => {
 music.addEventListener("pause", () => updateMusicButton(false));
 music.addEventListener("play", () => updateMusicButton(true));
 updateMusicButton(false);
+
+async function tryAutoplayMusic() {
+  try {
+    await music.play();
+    localStorage.setItem("flowerMusicPreference", "playing");
+  } catch {}
+}
+
+tryAutoplayMusic();
+document.addEventListener(
+  "pointerdown",
+  (event) => {
+    if (!event.target.closest("#music-toggle")) {
+      tryAutoplayMusic();
+    }
+  },
+  { once: true },
+);
 
 function bouquetCategories(bouquet) {
   return bouquet.categories || [bouquet.category];

@@ -94,18 +94,18 @@ window.fifthRoundBouquets = [
   },
   {
     "id": "DW-007",
-    "name": "生日日常花束 02",
+    "name": "紫色玫瑰开业花篮",
     "categories": [
       "日常",
-      "生日"
+      "开业乔迁"
     ],
     "subcategories": [
-      "生日花束"
+      "花篮"
     ],
     "price": "388",
     "image": "fifth-007.jpg",
     "featured": true,
-    "description": "生日日常花束 02实拍款式，可根据预算、花期与使用场景调整搭配。",
+    "description": "紫色玫瑰开业花篮实拍款式，可根据预算、花期与使用场景调整搭配。",
     "materials": "请联系花店确认当日花材"
   },
   {

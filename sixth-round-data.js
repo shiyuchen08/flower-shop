@@ -146,21 +146,17 @@ window.sixthRoundBouquets = [
   },
   {
     "id": "DL-010",
-    "name": "蓝白玫瑰花束",
+    "name": "蓝白婚车装饰",
     "categories": [
-      "日常",
-      "生日",
-      "节日"
+      "婚礼"
     ],
     "subcategories": [
-      "生日花束",
-      "教师节",
-      "父亲节"
+      "婚车装饰"
     ],
-    "price": "288",
+    "price": "",
     "image": "sixth-010.jpg",
     "featured": false,
-    "description": "蓝白玫瑰花束实拍款式，可根据预算、花期与使用场景调整搭配。",
+    "description": "蓝白婚车装饰实拍款式，可根据预算、花期与使用场景调整搭配。",
     "materials": "请联系花店确认当日花材"
   },
   {
