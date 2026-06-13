@@ -195,6 +195,10 @@ function bouquetLabels(bouquet) {
   return [...bouquetCategories(bouquet), ...bouquetSubcategories(bouquet)].join(" - ");
 }
 
+function thumbnailFor(image) {
+  return `thumb-${image}`;
+}
+
 function saveShortlist() {
   localStorage.setItem("flowerShortlist", JSON.stringify(shortlist));
   shortlistCount.textContent = shortlist.length;
@@ -217,7 +221,12 @@ function renderShortlist() {
         .map(
           (bouquet) => `
             <article class="shortlist-item">
-              <img src="${bouquet.image}" alt="${bouquet.name}" />
+              <img
+                src="${thumbnailFor(bouquet.image)}"
+                alt="${bouquet.name}"
+                loading="lazy"
+                decoding="async"
+              />
               <div>
                 <h3>${bouquet.name}</h3>
                 <p>${bouquet.id} · ${priceText(bouquet, "全部")}</p>
@@ -255,12 +264,13 @@ function renderBouquets(filter = "日常") {
   grid.innerHTML = visible.length
     ? visible
     .map(
-      (bouquet) => `
+      (bouquet, index) => `
         <article class="bouquet-card" data-id="${bouquet.id}" tabindex="0">
           <img
-            src="${bouquet.image}"
+            src="${thumbnailFor(bouquet.image)}"
             alt="${bouquet.name}花束"
-            loading="lazy"
+            loading="${index < 4 ? "eager" : "lazy"}"
+            fetchpriority="${index < 4 ? "high" : "low"}"
             decoding="async"
           />
           <div class="bouquet-info">
