@@ -325,6 +325,17 @@ function renderBouquets(filter = "日常") {
     }
   }
 
+  if (filter === "日常") {
+    const firstIndex = visible.findIndex((bouquet) => bouquet.id === "DW-006");
+    const secondIndex = visible.findIndex((bouquet) => bouquet.id === "DW-008");
+    if (firstIndex >= 0 && secondIndex >= 0) {
+      [visible[firstIndex], visible[secondIndex]] = [
+        visible[secondIndex],
+        visible[firstIndex],
+      ];
+    }
+  }
+
   grid.innerHTML = visible.length
     ? visible
     .map(
