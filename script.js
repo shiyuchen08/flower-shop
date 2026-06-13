@@ -1,14 +1,5 @@
 const legacyBouquets = [
   {
-    id: "SR-001",
-    name: "紫粉心愿",
-    categories: ["生日", "浪漫"],
-    price: 180,
-    image: "birthday-180.jpg",
-    description: "粉紫与奶白交织的温柔花束，把生日祝福变成一场浪漫的小惊喜。",
-    materials: "粉玫瑰、紫玫瑰、白玫瑰、洋桔梗、紫罗兰",
-  },
-  {
     id: "SR-002",
     name: "梦幻晴空",
     categories: ["生日", "浪漫"],
@@ -72,15 +63,6 @@ const legacyBouquets = [
     materials: "粉玫瑰、非洲菊、剑兰、紫罗兰、季节配花",
   },
   {
-    id: "XR-003",
-    name: "甜心陪伴",
-    categories: ["生日", "浪漫"],
-    price: 198,
-    image: "round2-198-b.jpg",
-    description: "粉玫瑰、大蝴蝶结与可爱玩偶组合，适合把生日惊喜和甜甜心意一起送达。",
-    materials: "粉玫瑰、玩偶与蝴蝶结装饰",
-  },
-  {
     id: "XR-004",
     name: "芍药初夏",
     categories: ["生日", "浪漫"],
@@ -97,16 +79,6 @@ const legacyBouquets = [
     image: "round2-268-b.jpg",
     description: "蜜桃色玫瑰与蝴蝶兰层次丰盈，为重要的生日准备一场温暖庆典。",
     materials: "蜜桃玫瑰、蝴蝶兰、紫罗兰、蓝色配花",
-  },
-  {
-    id: "XR-006",
-    name: "暖心问候",
-    categories: ["送长辈", "探望慰问"],
-    subcategories: ["母亲节"],
-    price: 198,
-    image: "mothers-day-visit-198.jpg",
-    description: "粉色康乃馨温柔又体贴，适合母亲节，也适合探望时送上一份暖心问候。",
-    materials: "粉色康乃馨、蝴蝶兰",
   },
   {
     id: "XR-007",
@@ -126,15 +98,6 @@ const legacyBouquets = [
     description: "浓烈红玫瑰搭配大蝴蝶结，热闹又坚定，适合认真表达心意。",
     materials: "红玫瑰、蝴蝶结装饰",
   },
-  {
-    id: "XR-009",
-    name: "紫色关怀",
-    categories: ["生日", "探望慰问"],
-    price: 218,
-    image: "birthday-visit-218.jpg",
-    description: "紫粉色调温柔清新，既适合庆祝生日，也适合探望时表达关怀。",
-    materials: "康乃馨、洋桔梗、紫罗兰、季节配花",
-  },
 ];
 
 const fifthRoundBouquets = window.fifthRoundBouquets || [];
@@ -148,6 +111,7 @@ const bouquetSource = [
   ...(window.catalogBouquets || []),
   ...regularFifthRoundBouquets,
 ];
+const bouquetNameOverrides = window.bouquetNameOverrides || {};
 
 const bouquets = bouquetSource.map((bouquet) => {
   const categories = (bouquet.categories || [bouquet.category]).filter(
@@ -163,7 +127,7 @@ const bouquets = bouquetSource.map((bouquet) => {
   if (bouquet.id === "HB-048") {
     return {
       ...bouquet,
-      name: "婚车装饰",
+      name: bouquetNameOverrides[bouquet.id] || bouquet.name,
       categories: ["婚礼"],
       subcategories: ["婚车装饰"],
       description: "婚车装饰实拍案例，具体尺寸、花材与现场方案可联系花店沟通。",
@@ -184,7 +148,12 @@ const bouquets = bouquetSource.map((bouquet) => {
     subcategories.push(bouquet.name.includes("开业") ? "花篮" : "花束");
   }
 
-  return { ...bouquet, categories, subcategories: [...new Set(subcategories)] };
+  return {
+    ...bouquet,
+    name: bouquetNameOverrides[bouquet.id] || bouquet.name,
+    categories,
+    subcategories: [...new Set(subcategories)],
+  };
 });
 
 const categoryChildren = {
@@ -389,32 +358,12 @@ document.querySelector("#contact-open").addEventListener("click", () => {
 
 document.querySelector("#custom-contact-open").addEventListener("click", () => {
   document.querySelector("#contact-tip").textContent =
-    "可先复制定制需求模板，再添加微信联系花店。";
+    "添加微信后，告诉我们赠送对象、日期、预算和喜欢的颜色。";
   contactDialog.showModal();
 });
 
 document.querySelector("#contact-close").addEventListener("click", () => {
   contactDialog.close();
-});
-
-document.querySelector("#custom-template-copy").addEventListener("click", async () => {
-  const template = [
-    "你好，我想咨询定制花束：",
-    "赠送对象：",
-    "使用日期：",
-    "预算：",
-    "喜欢的颜色：",
-    "配送或自取：",
-    "其他要求：",
-  ].join("\n");
-  try {
-    await navigator.clipboard.writeText(template);
-    document.querySelector("#contact-tip").textContent =
-      "定制需求模板已复制，可粘贴到微信填写。";
-  } catch {
-    document.querySelector("#contact-tip").textContent =
-      "请添加微信后，告诉我们赠送对象、日期、预算和喜欢的颜色。";
-  }
 });
 
 document.querySelector("#wechat-copy").addEventListener("click", async () => {

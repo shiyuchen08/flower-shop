@@ -175,7 +175,7 @@ button {
 
 .how-to li span {
   color: var(--peach);
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -221,8 +221,9 @@ button {
 
 .intro span {
   color: var(--peach);
-  font-size: 0.7rem;
+  font-size: 0.88rem;
   font-weight: bold;
+  letter-spacing: 0.06em;
 }
 
 .intro h2 {
@@ -446,11 +447,15 @@ footer p {
 }
 
 .product-dialog {
-  position: relative;
+  position: fixed;
+  inset: 0;
   width: min(92vw, 720px);
   max-height: 90vh;
+  margin: auto;
   padding: 0;
   border: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   color: var(--ink);
   background: var(--paper);
 }
@@ -543,17 +548,6 @@ footer p {
 
 .contact-actions .primary-button {
   grid-column: 1 / -1;
-}
-
-.custom-template-button {
-  min-height: 48px;
-  border: 1px solid var(--peach);
-  grid-column: 1 / -1;
-  color: var(--ink);
-  background: rgba(226, 169, 143, 0.14);
-  cursor: pointer;
-  font: inherit;
-  font-weight: 600;
 }
 
 .contact-actions .secondary-button {
@@ -679,14 +673,16 @@ footer p {
 .shortlist-bar {
   position: fixed;
   z-index: 8;
-  right: 18px;
-  bottom: 18px;
+  right: 16px;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  left: 16px;
   display: none;
   min-height: 50px;
   padding: 0 18px;
   border: 0;
   border-radius: 100px;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   color: white;
   background: var(--green);
@@ -847,6 +843,13 @@ footer p {
 }
 
 @media (min-width: 720px) {
+  .shortlist-bar {
+    right: 18px;
+    bottom: 18px;
+    left: auto;
+    justify-content: flex-start;
+  }
+
   .hero {
     padding: 30px 40px;
   }

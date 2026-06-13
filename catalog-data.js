@@ -75,15 +75,17 @@ window.catalogBouquets = [
     "id": "HB-006",
     "name": "母亲节花束 03",
     "categories": [
-      "送长辈",
-      "节日"
+      "生日",
+      "节日",
+      "探望慰问"
     ],
     "subcategories": [
+      "生日花束",
       "母亲节"
     ],
     "price": "228",
     "image": "catalog-006.jpg",
-    "description": "适合母亲节场合的实拍花束，花材会随花期与当日供应适当调整。",
+    "description": "紫粉色调温柔清新，适合生日、母亲节，也适合探望时表达关怀。",
     "materials": "请联系花店确认当日花材"
   },
   {
