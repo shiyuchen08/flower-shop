@@ -647,34 +647,6 @@ window.catalogBouquets = [
     "materials": "按现场方案配置"
   },
   {
-    "id": "HB-047",
-    "name": "婚车装饰 07",
-    "categories": [
-      "婚礼"
-    ],
-    "subcategories": [
-      "婚车装饰"
-    ],
-    "price": "",
-    "image": "catalog-047.jpg",
-    "description": "婚车装饰实拍案例，具体尺寸、花材与现场方案可联系花店沟通。",
-    "materials": "按现场方案配置"
-  },
-  {
-    "id": "HB-048",
-    "name": "婚车装饰",
-    "categories": [
-      "婚礼"
-    ],
-    "subcategories": [
-      "婚车装饰"
-    ],
-    "price": "198/对",
-    "image": "catalog-046.jpg",
-    "description": "婚车装饰实拍案例，具体尺寸、花材与现场方案可联系花店沟通。",
-    "materials": "按现场方案配置"
-  },
-  {
     "id": "HB-049",
     "name": "开业花礼 02",
     "categories": [
@@ -809,16 +781,6 @@ window.catalogBouquets = [
     "image": "romantic-330.jpg",
     "description": "浅粉玫瑰围成柔和心形，搭配白色蝴蝶兰与轻盈丝带，适合温柔表达心意。",
     "materials": "浅粉玫瑰、白色蝴蝶兰、丝带装饰"
-  },
-  {
-    "id": "RM-002",
-    "name": "红玫瑰蝴蝶兰心形花束",
-    "categories": ["浪漫"],
-    "subcategories": ["浪漫花束"],
-    "price": "380",
-    "image": "romantic-380-a.jpg",
-    "description": "红玫瑰心形花面搭配白色蝴蝶兰与珍珠装饰，热烈中带着精致仪式感。",
-    "materials": "红玫瑰、白色蝴蝶兰、珍珠装饰"
   },
   {
     "id": "RM-003",

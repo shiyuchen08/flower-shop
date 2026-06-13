@@ -124,17 +124,6 @@ const bouquets = bouquetSource.map((bouquet) => {
     subcategory === "婚礼布置花艺" ? "婚礼布置" : subcategory,
   );
 
-  if (bouquet.id === "HB-048") {
-    return {
-      ...bouquet,
-      name: bouquetNameOverrides[bouquet.id] || bouquet.name,
-      categories: ["婚礼"],
-      subcategories: ["婚车装饰"],
-      description: "婚车装饰实拍案例，具体尺寸、花材与现场方案可联系花店沟通。",
-      materials: "按现场方案配置",
-    };
-  }
-
   if (categories.includes("生日")) {
     subcategories.push(bouquet.name.includes("布置") ? "生日布置" : "生日花束");
   }
@@ -243,7 +232,7 @@ function renderShortlist() {
 
 function renderBouquets(filter = "日常") {
   activeFilter = filter;
-  const visible =
+  let visible =
     filter === "全部"
       ? bouquets
       : bouquets.filter(
@@ -251,6 +240,17 @@ function renderBouquets(filter = "日常") {
             bouquetCategories(bouquet).includes(filter) ||
             bouquetSubcategories(bouquet).includes(filter),
         );
+
+  if (filter === "浪漫" || filter === "浪漫花束") {
+    const firstIndex = visible.findIndex((bouquet) => bouquet.id === "SR-002");
+    const secondIndex = visible.findIndex((bouquet) => bouquet.id === "SR-006");
+    if (firstIndex >= 0 && secondIndex >= 0) {
+      [visible[firstIndex], visible[secondIndex]] = [
+        visible[secondIndex],
+        visible[firstIndex],
+      ];
+    }
+  }
 
   grid.innerHTML = visible.length
     ? visible
