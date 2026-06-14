@@ -366,25 +366,6 @@ footer p {
   line-height: 1.8;
 }
 
-.load-more-button {
-  display: none;
-  width: min(100%, 360px);
-  margin: 38px auto 0;
-  padding: 13px 22px;
-  border: 1px solid var(--green);
-  border-radius: 100px;
-  color: var(--green);
-  background: rgba(255, 253, 248, 0.82);
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.82rem;
-  font-weight: 600;
-}
-
-.load-more-button.visible {
-  display: block;
-}
-
 .bouquet-card {
   cursor: pointer;
 }

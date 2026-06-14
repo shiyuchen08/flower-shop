@@ -182,11 +182,8 @@ const shortlistCount = document.querySelector("#shortlist-count");
 const orderButton = document.querySelector("#order-button");
 const music = document.querySelector("#flower-music");
 const musicToggle = document.querySelector("#music-toggle");
-const loadMoreButton = document.querySelector("#load-more-button");
 let selectedBouquet = null;
 let activeFilter = "日常";
-let visibleBouquetCount = 12;
-const bouquetPageSize = 12;
 let shortlist = JSON.parse(localStorage.getItem("flowerShortlist") || "[]")
   .filter((id) => bouquets.some((bouquet) => bouquet.id === id))
   .slice(0, 6);
@@ -339,9 +336,8 @@ function renderBouquets(filter = "日常") {
     }
   }
 
-  const renderedBouquets = visible.slice(0, visibleBouquetCount);
-  grid.innerHTML = renderedBouquets.length
-    ? renderedBouquets
+  grid.innerHTML = visible.length
+    ? visible
     .map(
       (bouquet, index) => `
         <article class="bouquet-card" data-id="${bouquet.id}" tabindex="0">
@@ -364,11 +360,6 @@ function renderBouquets(filter = "日常") {
     )
     .join("")
     : '<p class="empty-state">这个分类的作品正在整理中，欢迎联系花店定制。</p>';
-
-  const remaining = visible.length - renderedBouquets.length;
-  loadMoreButton.classList.toggle("visible", remaining > 0);
-  loadMoreButton.textContent =
-    remaining > 0 ? `查看更多花束（还有 ${remaining} 款）` : "查看更多花束";
 }
 
 function renderSubfilters(category) {
@@ -416,7 +407,6 @@ document.querySelector(".filters").addEventListener("click", (event) => {
     filter.classList.toggle("active", filter === button);
   });
   const firstSubfilter = renderSubfilters(button.dataset.filter);
-  visibleBouquetCount = bouquetPageSize;
   renderBouquets(firstSubfilter || button.dataset.filter);
 });
 
@@ -427,13 +417,7 @@ subfilters.addEventListener("click", (event) => {
   document.querySelectorAll(".subfilter").forEach((filter) => {
     filter.classList.toggle("active", filter === button);
   });
-  visibleBouquetCount = bouquetPageSize;
   renderBouquets(button.dataset.filter);
-});
-
-loadMoreButton.addEventListener("click", () => {
-  visibleBouquetCount += bouquetPageSize;
-  renderBouquets(activeFilter);
 });
 
 grid.addEventListener("click", (event) => {
