@@ -146,7 +146,9 @@ const bouquets = bouquetSource.map((bouquet) => {
     subcategories = subcategories.filter(
       (subcategory) => !["新店开业", "乔迁、开工"].includes(subcategory),
     );
-    subcategories.push(bouquet.name.includes("开业") ? "花篮" : "花束");
+    if (!subcategories.some((subcategory) => ["花篮", "花束"].includes(subcategory))) {
+      subcategories.push(bouquet.name.includes("开业") ? "花篮" : "花束");
+    }
   }
 
   return {

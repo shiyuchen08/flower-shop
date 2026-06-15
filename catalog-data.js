@@ -647,7 +647,7 @@ window.catalogBouquets = [
       "开业乔迁"
     ],
     "subcategories": [
-      "新店开业"
+      "花篮"
     ],
     "price": "198/对",
     "image": "catalog-048.jpg",

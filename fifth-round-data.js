@@ -94,18 +94,15 @@ window.fifthRoundBouquets = [
   },
   {
     "id": "DW-007",
-    "name": "紫色玫瑰开业花篮",
+    "name": "松弛紫色系花束",
     "categories": [
-      "日常",
-      "开业乔迁"
+      "日常"
     ],
-    "subcategories": [
-      "花篮"
-    ],
-    "price": "388",
+    "subcategories": [],
+    "price": "338",
     "image": "fifth-007.jpg",
     "featured": true,
-    "description": "紫色玫瑰开业花篮实拍款式，可根据预算、花期与使用场景调整搭配。",
+    "description": "松弛紫色系花束实拍款式，可根据预算、花期与使用场景调整搭配。",
     "materials": "请联系花店确认当日花材"
   },
   {
@@ -274,7 +271,7 @@ window.fifthRoundBouquets = [
       "生日花束",
       "母亲节"
     ],
-    "price": "208",
+    "price": "268",
     "image": "fifth-018.jpg",
     "featured": false,
     "description": "生日·母亲节花束 01实拍款式，可根据预算、花期与使用场景调整搭配。",
